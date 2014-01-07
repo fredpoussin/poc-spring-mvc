@@ -1,0 +1,99 @@
+Servlet 3.1
+===========
+
+What's new
+----------
+
+- Non-blocking I/O:
+Allow to build scalable applications.
+
+The Web
+=======
+
+It covers Spring Framework's support for the presentation tier (web-based presentation tier) including support for WebSocket-style messaging in web applications.
+
+Spring Framework's web framework, Spring Web MVC. 
+
+Web MVC framework
+-----------------
+
+The framework is designed around a DispatcherServlet. The default handler is based on the @Controller and @RequestMapping annotations.
+
+A Controller is responsible for preparing a model Map with data and selecting a view name but it can also write directly to the response stream and complete the request. 
+
+View name resolution is configurable through file extension and Accept header content type negotiation, through bean names, a properties file, or even a custom ViewResolver imlementation
+
+The model is a Map interface 
+
+A minimum maven war file
+------------------------
+/project-name
+	/src
+		/main
+			/java
+			/resources
+			/webapp
+				/app 						// an SPA placeholder
+					/css
+					/img
+					/js
+					/lib
+					/partials
+					index.html
+				/WEB-INF
+					web.xml
+		/test
+	pom.xml
+
+Adding Spring Web MVC to the web application
+--------------------------------------------
+/project-name
+	/src
+		/main
+			/java
+			/resources
+			/webapp
+				/app 						// an SPA placeholder
+					/css
+					/img
+					/js
+					/lib
+					/partials
+					index.html
+				/WEB-INF
+					/spring
+						dispatcher-config.xml
+					web.xml
+		/test
+	pom.xml
+
+ApplicationContext in Spring application
+----------------------------------------
+
+WebApplicationContext in Spring web application
+-----------------------------------------------
+WebApplicationContext --extends--> ApplicationContext
+Each DispatcherServlet has its own WebApplicationContext
+Each Spring web application has a root WebApplicationContext
+
+It is a WebApplicationContext that contains Controllers, ViewResolvers, HandlerMappings, etc. 
+
+Tips
+----
+Use RequestContextUtils to access to WebApplicationContext
+
+Mapping the request body with the @RequestBody annotation
+---------------------------------------------------------
+Use HttpMessageConverter to convert a request body to a method argument. 
+Request: A request message --> an object 
+Response: an object --> an HTTP response body
+
+Controllers
+-----------
+
+Handler mappings
+----------------
+In previous version of Spring, user needs to configure at least one HandlerMapping in the web application context to map incoming web requests to appropriate handlers. With the @Controller annotation, you generally don't need to do that because the RequestMappingHandlerMapping automatically looks for @RequestMapping annotation on all @Controller beans. 
+
+Resolving views
+---------------
